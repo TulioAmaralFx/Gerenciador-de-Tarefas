@@ -1,0 +1,82 @@
+package Gerenciador-de-Tarefas;
+
+import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
+
+
+
+public class ArmazenarLogin {
+	
+	private static ArrayList<Tarefa> tarefas = new ArrayList<>();
+	private static Scanner scanner = new Scanner(System.in);
+	
+	public static void main(String[] args) {
+		
+		int opcao;
+		
+		do {
+			exibirMenu();
+			opcao = scanner.nextInt();
+			scanner.nextLine();
+			switch(opcao){
+				case 1:
+					inserirTarefa();
+					break;
+				case 2:
+					listaTarefas();
+					break;
+				case 3:
+					excluirTarefa();
+					break;
+				case 4:
+					System.out.println("Saindo do programa!!");
+					return;
+				default:
+					System.out.println("Opcao invalida!!");
+				}
+			
+		}while(opcao != 4);
+	}
+	public static void exibirMenu(){
+		System.out.println("Gerenciador de Tarefas\n");
+		System.out.println("\n1. Inserir Tarefa\n");
+		System.out.println("2. Listar tarefas\n");
+		System.out.println("3. Excluir tarefas\n");
+		System.out.println("0. Para sair\n");
+		System.out.println("Escolha uma opcao: ");
+	}
+	public static void inserirTarefa(){
+		System.out.println("Digite o nome da tarefa: ");
+		String descricao = scanner.nextLine();
+		tarefas.add(new Tarefa(descricao));
+		System.out.println("Tarefa adicionada!!!!");
+	}
+	
+	public static void listaTarefas(){
+		if(tarefas.isEmpty()){
+			System.out.println("\nA lista de tarefas esta vazia!");
+		}else{
+			for(int i = 0; i< tarefas.size(); i++){
+				System.out.println(i + 1 + ". " + tarefas.get(i));
+			}
+		}
+	}
+	public static void excluirTarefa(){
+		listaTarefas();
+		
+		if(!tarefas.isEmpty()){
+			System.out.println("\nEscolha o numero da tarefa: ");
+			
+			int indice = scanner.nextInt();
+			if(indice >= 0 && indice < tarefas.size()){
+				tarefas.remove(indice);
+				System.out.println("\nTarefa removida!!");
+			}else{
+				System.out.println("\nnumero invalido!!");
+			}
+			
+		}
+	}
+	
+}
